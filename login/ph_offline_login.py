@@ -14,7 +14,7 @@ account = text[0].strip('\n')
 pw = text[1].strip('\n')
 name = text[2].strip('\n')
 
-#Create IE session
+
 dir = os.getcwd()
 ie_driver_path = dir + '\IEDriverServer.exe'
 
@@ -29,22 +29,25 @@ driver.maximize_window()
 # driver.maximize_window()
 
 # navigate to the application home page
-      
-driver.get('https://pholadminsd.pd.local/admin/auth/login')
+def login():
+    driver.get('https://pholadminsd.pd.local/admin/auth/login')
 
-#For IE 
-driver.find_element_by_link_text("其他資訊").click()
-driver.find_element_by_link_text("繼續瀏覽網頁 (不建議)").click()
+    #For IE 
+    driver.find_element_by_link_text("其他資訊").click()
+    driver.find_element_by_link_text("繼續瀏覽網頁 (不建議)").click()
 
-#Login page
-driver.find_element_by_id("UserLoginForm_username").clear()
-driver.find_element_by_id("UserLoginForm_username").send_keys(account[8:])
-driver.find_element_by_id("UserLoginForm_password").clear()
-driver.find_element_by_id("UserLoginForm_password").send_keys(pw[3:])
-driver.find_element_by_name("yt0").click()
+    #Login page
+    driver.find_element_by_id("UserLoginForm_username").clear()
+    driver.find_element_by_id("UserLoginForm_username").send_keys(account[8:])
+    driver.find_element_by_id("UserLoginForm_password").clear()
+    driver.find_element_by_id("UserLoginForm_password").send_keys(pw[3:])
+    driver.find_element_by_name("yt0").click()
 
-#Logout process
-driver.find_element_by_link_text("Account (" + name[5:] + ")").click()
-driver.find_element_by_link_text("Logout (" + name[5:] + ")").click()
+    #Logout process
+    driver.find_element_by_link_text("Account (" + name[5:] + ")").click()
+    driver.find_element_by_link_text("Logout (" + name[5:] + ")").click()
 
-driver.quit()
+    driver.quit()
+    time.sleep(3)
+
+login()
