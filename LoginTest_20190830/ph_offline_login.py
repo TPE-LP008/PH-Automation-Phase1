@@ -63,7 +63,7 @@ class LoginTests(unittest.TestCase):
         self.driver.get('https://pholadminsd.pd.local/admin/auth/login')
 
         #For IE Only
-        self.setUpdriver.find_element_by_xpath("//*[@id='moreInfoContainer']/A").click()
+        self.driver.find_element_by_xpath("//*[@id='moreInfoContainer']/A").click()
         self.driver.find_element_by_xpath("//*[@id='overridelink']").click()
     
    #Login process
