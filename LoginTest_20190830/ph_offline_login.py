@@ -67,7 +67,7 @@ class LoginTests(unittest.TestCase):
         self.driver.find_element_by_xpath("//*[@id='overridelink']").click()
     
    #Login process
-    def test_LogIN(self):
+    def test_Login(self):
         for i in range(0,len(TC1),3):
             settc1(i)
             self.driver.find_element_by_id("UserLoginForm_username").clear()
@@ -85,7 +85,7 @@ class LoginTests(unittest.TestCase):
             self.driver.close()
     
     # #Logout process
-    def test_LogOUT(self):
+    def test_Logout(self):
         for i in range(0,len(TC1),3):
             settc1(i)
             self.driver.find_element_by_id("UserLoginForm_username").clear()
