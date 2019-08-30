@@ -63,8 +63,8 @@ class LoginTests(unittest.TestCase):
         self.driver.get('https://pholadminsd.pd.local/admin/auth/login')
 
         #For IE Only
-        self.driver.find_element_by_link_text("其他資訊").click()
-        self.driver.find_element_by_link_text("繼續瀏覽網頁 (不建議)").click()
+        self.setUpdriver.find_element_by_xpath("//*[@id='moreInfoContainer']/A").click()
+        self.driver.find_element_by_xpath("//*[@id='overridelink']").click()
     
    #Login process
     def test_LogIN(self):
