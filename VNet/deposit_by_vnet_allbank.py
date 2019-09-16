@@ -29,7 +29,7 @@ def select_bank(code):
     bank_code = "input[value='" + code + "']"
     index = driver.find_element_by_css_selector(bank_code).is_displayed()
     if (index is True):
-        print("select bank is", bank_name(code))
+        print("selected bank is", bank_name(code))
         driver.find_element_by_css_selector(bank_code).click()
         return True
     else:
@@ -81,17 +81,17 @@ elements_list = driver.find_elements_by_css_selector("input[value*='086']")     
 for ele in elements_list:
     banks_list.append(ele.get_attribute('value'))
 
-print(banks_list)
+print("Bank Code:", banks_list)
 
 for bank in banks_list:
     print('get bank code:')
     print(bank, bank_name(bank))
     if (select_bank(bank) is True):
         driver.find_element_by_css_selector("td>input#btn_submit").submit()
-        print("result is success")
-        print("========")
         driver.find_element_by_css_selector("input[value*='Success']").click()      # The simulation result of success
         driver.find_element_by_css_selector("div#btn>input#btn_back[type='button']").click()
+        print("result is success")
+        print("========")
         sleep(1)
     else:
         continue
