@@ -42,7 +42,7 @@ def bank_name(bankcode):
     bank_dict = {'086102': '工商銀行', '086308': '招商銀行', '086103': '農業銀行', '086105': '建設銀行', '086104': '中國銀行',
                         '086305': '民生銀行', '086309': '興業銀行', '086310': '浦東發展銀行', '086301': '交通銀行', '086302': '中信銀行',
                         '086303': '光大銀行', '086304': '華夏銀行', '086306': '發展銀行', '086502': '平安銀行', '086501': '北京銀行',
-                        '086403': '郵政儲蓄銀行', '086507': '上海銀行', '086517': '農村商業銀行'}
+                        '086403': '郵政儲蓄銀行', '086507': '上海銀行', '086517': '農村商業銀行', '086505': 'BEA東亞銀行'}
     return bank_dict[bankcode]
 
 
@@ -64,46 +64,46 @@ def vnet_info_input():
     sleep(1)
 
 
-driver = webdriver.Ie()
-driver.maximize_window()
-driver.implicitly_wait(6)
+if __name__ == '__main__':
+    driver = webdriver.Ie()
+    driver.maximize_window()
+    driver.implicitly_wait(6)
 
-T1 = time()
+    T1 = time()
 
-# Loging Mock & Input Txn Info
-driver.get("http://mock.systest.site/sdprod")
-driver.find_element_by_id("mockpwd").send_keys("mockpwd\n")
-vnet_info_input()
+    # Loging Mock & Input Txn Info
+    driver.get("http://mock.systest.site/sdprod")
+    driver.find_element_by_id("mockpwd").send_keys("mockpwd\n")
+    vnet_info_input()
 
-# Get all banks that display on screen
-banks_list = []
-elements_list = driver.find_elements_by_css_selector("input[value*='086']")     # 取得所有屬性value有包含086的元素定位
-for ele in elements_list:
-    banks_list.append(ele.get_attribute('value'))
+    # Get all banks that display on screen
+    banks_list = []
+    elements_list = driver.find_elements_by_css_selector("input[value*='086']")     # 取得所有屬性value有包含086的元素定位
+    for ele in elements_list:
+        banks_list.append(ele.get_attribute('value'))
 
-print("Bank Code:", banks_list)
+    print("Bank Code:", banks_list)
 
-for bank in banks_list:
-    print('get bank code:')
-    print(bank, bank_name(bank))
-    if (select_bank(bank) is True):
-        driver.find_element_by_css_selector("td>input#btn_submit").submit()
-        driver.find_element_by_css_selector("input[value*='Success']").click()      # The simulation result of success
-        driver.find_element_by_css_selector("div#btn>input#btn_back[type='button']").click()
-        print("result is success")
-        print("========")
-        sleep(1)
-    else:
-        continue
+    for bank in banks_list:
+        print('get bank code:')
+        print(bank, bank_name(bank))
+        if (select_bank(bank) is True):
+            driver.find_element_by_css_selector("td>input#btn_submit").submit()
+            driver.find_element_by_css_selector("input[value*='Success']").click()      # The simulation result of success
+            driver.find_element_by_css_selector("div#btn>input#btn_back[type='button']").click()
+            print("result is success")
+            print("========")
+            sleep(1)
+        else:
+            continue
 
-    if (bank != banks_list[-1]):
-        driver.get("http://mock.systest.site/sdprod")
-        driver.find_element_by_id("mockpwd").send_keys("mockpwd\n")
-        sleep(1)
-        vnet_info_input()
+        if (bank != banks_list[-1]):
+            driver.get("http://mock.systest.site/sdprod")
+            driver.find_element_by_id("mockpwd").send_keys("mockpwd\n")
+            sleep(1)
+            vnet_info_input()
 
+    print("Testing time is", str(time() - T1))
 
-print("Testing time is", str(time() - T1))
-
-sleep(2)
-driver.quit()
+    sleep(2)
+    driver.quit()
